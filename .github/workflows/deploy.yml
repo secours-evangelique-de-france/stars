@@ -3,18 +3,15 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Déclenche le déploiement à chaque push sur main
+      - main
 
-  # Permet de lancer manuellement le workflow
   workflow_dispatch:
 
-# Permissions nécessaires pour déployer sur GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Un seul déploiement à la fois
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -30,18 +27,49 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'  # Utilisons Node 20 (stable)
           cache: 'yarn'
+      
+      - name: Debug - Show secrets status
+        run: |
+          echo "Checking if secrets are set..."
+          if [ -z "${{ secrets.VITE_GOOGLE_SCRIPT_URL }}" ]; then
+            echo "⚠️ WARNING: VITE_GOOGLE_SCRIPT_URL is not set - using placeholder"
+          else
+            echo "✅ VITE_GOOGLE_SCRIPT_URL is set"
+          fi
+          
+          if [ -z "${{ secrets.VITE_GOOGLE_SHEET_URL }}" ]; then
+            echo "⚠️ WARNING: VITE_GOOGLE_SHEET_URL is not set - using placeholder"
+          else
+            echo "✅ VITE_GOOGLE_SHEET_URL is set"
+          fi
       
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      
+      - name: Debug - Show environment
+        run: |
+          echo "Node version: $(node --version)"
+          echo "Yarn version: $(yarn --version)"
+          echo "Working directory: $(pwd)"
+          echo "Files present:"
+          ls -la
       
       - name: Build
         run: yarn build
         env:
           # Variables d'environnement depuis GitHub Secrets
-          VITE_GOOGLE_SCRIPT_URL: ${{ secrets.VITE_GOOGLE_SCRIPT_URL }}
-          VITE_GOOGLE_SHEET_URL: ${{ secrets.VITE_GOOGLE_SHEET_URL }}
+          # Si non définies, utilise des placeholders pour permettre le build
+          VITE_GOOGLE_SCRIPT_URL: ${{ secrets.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/placeholder' }}
+          VITE_GOOGLE_SHEET_URL: ${{ secrets.VITE_GOOGLE_SHEET_URL || 'https://docs.google.com/placeholder' }}
+          NODE_ENV: production
+      
+      - name: Debug - Show build output
+        run: |
+          echo "Build completed"
+          echo "Dist folder contents:"
+          ls -la dist/
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
