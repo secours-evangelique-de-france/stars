@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { apiService } from './services/config';
+import logoSEF from '/logosef.jpeg'
+
 
 export default function FormulaireSEF() {
   const [formData, setFormData] = useState({
@@ -382,7 +384,7 @@ export default function FormulaireSEF() {
 
         <div style={{ marginBottom: '48px', textAlign: 'center' }}>
           <img 
-            src="/logosef.jpeg" 
+            src={logoSEF} 
             alt="Logo SEF" 
             style={{
               maxWidth: '200px',
