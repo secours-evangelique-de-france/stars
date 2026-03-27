@@ -7,8 +7,8 @@ export default defineConfig({
   // Configuration pour GitHub Pages
   // ⚠️ Remplacez 'formulaire-sef' par le nom exact de votre repository GitHub
   base: process.env.NODE_ENV === 'production' 
-    ? '/formulaire-sef/'  // Pour GitHub Pages: /nom-du-repo/
-    : '/',                 // Pour développement local
+    ? '/stars/'  // Pour GitHub Pages: /nom-du-repo/
+    : '/',       // Pour développement local
   
   server: {
     port: 3000,
@@ -18,13 +18,6 @@ export default defineConfig({
   // Build optimisé
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom']
-        }
-      }
-    }
+    sourcemap: false
   }
 })
