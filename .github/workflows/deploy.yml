@@ -2,9 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -24,61 +22,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Utilisons Node 20 (stable)
+          node-version: 20
           cache: 'yarn'
-      
-      - name: Debug - Show secrets status
-        run: |
-          echo "Checking if secrets are set..."
-          if [ -z "${{ secrets.VITE_GOOGLE_SCRIPT_URL }}" ]; then
-            echo "⚠️ WARNING: VITE_GOOGLE_SCRIPT_URL is not set - using placeholder"
-          else
-            echo "✅ VITE_GOOGLE_SCRIPT_URL is set"
-          fi
-          
-          if [ -z "${{ secrets.VITE_GOOGLE_SHEET_URL }}" ]; then
-            echo "⚠️ WARNING: VITE_GOOGLE_SHEET_URL is not set - using placeholder"
-          else
-            echo "✅ VITE_GOOGLE_SHEET_URL is set"
-          fi
       
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       
-      - name: Debug - Show environment
-        run: |
-          echo "Node version: $(node --version)"
-          echo "Yarn version: $(yarn --version)"
-          echo "Working directory: $(pwd)"
-          echo "Files present:"
-          ls -la
-      
       - name: Build
         run: yarn build
         env:
-          # Variables d'environnement depuis GitHub Secrets
-          # Si non définies, utilise des placeholders pour permettre le build
-          VITE_GOOGLE_SCRIPT_URL: ${{ secrets.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/placeholder' }}
-          VITE_GOOGLE_SHEET_URL: ${{ secrets.VITE_GOOGLE_SHEET_URL || 'https://docs.google.com/placeholder' }}
+          VITE_GOOGLE_SCRIPT_URL: ${{ secrets.VITE_GOOGLE_SCRIPT_URL }}
+          VITE_GOOGLE_SHEET_URL: ${{ secrets.VITE_GOOGLE_SHEET_URL }}
           NODE_ENV: production
       
-      - name: Debug - Show build output
-        run: |
-          echo "Build completed"
-          echo "Dist folder contents:"
-          ls -la dist/
-      
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-      
+          path: ./dist
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
