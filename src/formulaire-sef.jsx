@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { apiService } from './services/config';
+import logoSEF from '/logosef.jpeg'
+
 
 export default function FormulaireSEF() {
   const [formData, setFormData] = useState({
@@ -9,6 +11,12 @@ export default function FormulaireSEF() {
     adressePostale: '',
     email: '',
     telephone: '',
+    membreCiteRoyale: '',
+    egliseLocale: '',
+    situationProfessionnelle: '',
+    secteurProfessionnel: '',
+    entrepriseOrganisme: '',
+    moyenTransport: '',
     situationFamiliale: '',
     enfants: '',
     nombreEnfants: '',
@@ -19,16 +27,26 @@ export default function FormulaireSEF() {
     formations: [],
     autresFormations: '',
     ministeresPassé: [],
-    autresMinisteresPassé: '', // NOUVEAU
+    autresMinisteresPassé: '',
     ministeresActuel: [],
-    autresMinisteresActuel: '', // NOUVEAU
+    autresMinisteresActuel: '',
     familleDisciples: '',
     nomFamille: '',
     raisonNonIntegration: '',
-    serviceActuel: [], // CHANGÉ en array
-    autresServices: '', // NOUVEAU
+    familleImpact: '',
+    nomFamilleImpact: '',
+    raisonNonIntegrationImpact: '',
+    serviceActuel: [],
+    autresServices: '',
+    viePreiereMeditation: '',
+    niveauDiscipolat: '',
+    presenceEglise: '',
+    autrePresence: '',
+    attentesMinistere: '',
+    suggestionsAmeliorations: '',
     situationPersonnelle: '',
-    sujetsPreire: ''
+    sujetPriereMajeur: '',
+    commentairesObservations: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -87,7 +105,17 @@ export default function FormulaireSEF() {
     'Relation et Déploiement des Antennes et du SEM',
     'Accueil Général & Administration',
     'Finances et Comptabilité',
-    'Gestion des opérations'
+    'Gestion des opérations',
+    'JESS - Jeunesse',
+    'SSV - Santé Soins et Vie',
+    'ARE - Accompagnement Réussite Éducative',
+    'FAME - Famille et Enfants',
+    'AAHL - Accès Hébergement et Logement',
+    'NOUBES - Nourriture et Besoins Essentiels',
+    'REIF - Réinsertion Emploi Insertion Formation',
+    'AVITR - Animation Villes et Territoires',
+    'SER - Seniors et Retraités',
+    'CAS - Culture Art Sport'
   ];
 
   const handleChange = (e) => {
@@ -141,6 +169,12 @@ export default function FormulaireSEF() {
             adressePostale: '',
             email: '',
             telephone: '',
+            membreCiteRoyale: '',
+            egliseLocale: '',
+            situationProfessionnelle: '',
+            secteurProfessionnel: '',
+            entrepriseOrganisme: '',
+            moyenTransport: '',
             situationFamiliale: '',
             enfants: '',
             nombreEnfants: '',
@@ -157,10 +191,20 @@ export default function FormulaireSEF() {
             familleDisciples: '',
             nomFamille: '',
             raisonNonIntegration: '',
+            familleImpact: '',
+            nomFamilleImpact: '',
+            raisonNonIntegrationImpact: '',
             serviceActuel: [],
             autresServices: '',
+            viePreiereMeditation: '',
+            niveauDiscipolat: '',
+            presenceEglise: '',
+            autrePresence: '',
+            attentesMinistere: '',
+            suggestionsAmeliorations: '',
             situationPersonnelle: '',
-            sujetsPreire: ''
+            sujetPriereMajeur: '',
+            commentairesObservations: ''
           });
         }, 3000);
       } else {
@@ -382,7 +426,7 @@ export default function FormulaireSEF() {
 
         <div style={{ marginBottom: '48px', textAlign: 'center' }}>
           <img 
-            src="/logosef.jpeg" 
+            src={logoSEF} 
             alt="Logo SEF" 
             style={{
               maxWidth: '200px',
@@ -419,6 +463,26 @@ export default function FormulaireSEF() {
             fontFamily: 'Inter, sans-serif'
           }}>
             Données uniquement consultables par la responsable
+          </p>
+        </div>
+
+        <div style={{
+          marginBottom: '40px',
+          padding: '24px',
+          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+          borderRadius: '12px',
+          border: '2px solid #667eea',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          <p style={{
+            fontSize: '15px',
+            color: '#1a1a1a',
+            lineHeight: '1.7',
+            margin: 0,
+            textAlign: 'justify'
+          }}>
+            Ce formulaire a vocation à me permettre de recueillir vos informations et ainsi, de prendre soin au mieux de chacun des membres de notre ministère. 
+            Il est personnel et confidentiel, moi seule aurai accès à vos informations.
           </p>
         </div>
 
@@ -503,9 +567,142 @@ export default function FormulaireSEF() {
             </div>
           </div>
 
-          {/* Section 2: Situation familiale */}
+          {/* Section 2: Église et Vie Professionnelle */}
           <div className="form-section">
-            <h2 className="section-title">2. Situation Familiale</h2>
+            <h2 className="section-title">2. Église et Vie Professionnelle</h2>
+            
+            <div className="form-group">
+              <label>Es-tu membre de la Cité royale ? *</label>
+              <div className="radio-group">
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="membreCiteOui"
+                    name="membreCiteRoyale"
+                    value="oui"
+                    checked={formData.membreCiteRoyale === 'oui'}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="membreCiteOui" style={{ marginBottom: 0 }}>Oui</label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="membreCiteNon"
+                    name="membreCiteRoyale"
+                    value="non"
+                    checked={formData.membreCiteRoyale === 'non'}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="membreCiteNon" style={{ marginBottom: 0 }}>Non</label>
+                </div>
+              </div>
+            </div>
+
+            {formData.membreCiteRoyale === 'non' && (
+              <div className="form-group">
+                <label htmlFor="egliseLocale">Précise ton église locale</label>
+                <input
+                  type="text"
+                  id="egliseLocale"
+                  name="egliseLocale"
+                  value={formData.egliseLocale}
+                  onChange={handleChange}
+                  placeholder="Nom de ton église locale..."
+                />
+              </div>
+            )}
+
+            <div className="form-group">
+              <label htmlFor="situationProfessionnelle">Situation professionnelle *</label>
+              <select
+                id="situationProfessionnelle"
+                name="situationProfessionnelle"
+                value={formData.situationProfessionnelle}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  border: '2px solid #040404',
+                  borderRadius: '8px',
+                  background: 'dark',
+                  cursor: 'pointer',
+                  color: 'white'
+                }}
+              >
+                <option value="" >-- Sélectionner --</option>
+                <option value="Étudiant(e)">Étudiant(e)</option>
+                <option value="Salarié(e)">Salarié(e)</option>
+                <option value="Fonctionnaire">Fonctionnaire</option>
+                <option value="Auto-entrepreneur">Auto-entrepreneur</option>
+                <option value="Chef d'entreprise">Chef d'entreprise</option>
+                <option value="En recherche d'emploi">En recherche d'emploi</option>
+                <option value="Retraité(e)">Retraité(e)</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="secteurProfessionnel">Dans quel secteur travailles-tu ?</label>
+              <input
+                type="text"
+                id="secteurProfessionnel"
+                name="secteurProfessionnel"
+                value={formData.secteurProfessionnel}
+                onChange={handleChange}
+                placeholder="Ex: Santé, Finance, Éducation, Commerce..."
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="entrepriseOrganisme">Dans quelle entreprise, quel organisme, travailles-tu ?</label>
+              <input
+                type="text"
+                id="entrepriseOrganisme"
+                name="entrepriseOrganisme"
+                value={formData.entrepriseOrganisme}
+                onChange={handleChange}
+                placeholder="Nom de l'entreprise ou de l'organisme..."
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="moyenTransport">Comment te rends-tu à l'église ? *</label>
+              <select
+                id="moyenTransport"
+                name="moyenTransport"
+                value={formData.moyenTransport}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '8px',
+                  background: 'dark',
+                  cursor: 'pointer',
+                  color: 'white'
+                }}
+              >
+                <option value="">-- Sélectionner --</option>
+                <option value="Transport en commun">Transport en commun</option>
+                <option value="Voiture personnelle">Voiture personnelle</option>
+                <option value="Covoiturage">Covoiturage</option>
+                <option value="À pied">À pied</option>
+                <option value="Vélo / Trottinette">Vélo / Trottinette</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Section 3: Situation familiale */}
+          <div className="form-section">
+            <h2 className="section-title">3. Situation Familiale</h2>
             
             <div className="form-group">
               <label>Situation *</label>
@@ -528,9 +725,9 @@ export default function FormulaireSEF() {
             </div>
           </div>
 
-          {/* Section 3: Enfants */}
+          {/* Section 4: Enfants */}
           <div className="form-section">
-            <h2 className="section-title">3. Enfants</h2>
+            <h2 className="section-title">4. Enfants</h2>
             
             <div className="form-group">
               <label>Avez-vous des enfants ? *</label>
@@ -590,9 +787,9 @@ export default function FormulaireSEF() {
             )}
           </div>
 
-          {/* Section 4: Parcours à ICC */}
+          {/* Section 5: Parcours à ICC */}
           <div className="form-section">
-            <h2 className="section-title">4. Parcours à ICC</h2>
+            <h2 className="section-title">5. Parcours à ICC</h2>
             
             <div className="form-group">
               <label htmlFor="dateArriveeICC">Date d'arrivée à ICC</label>
@@ -690,9 +887,9 @@ export default function FormulaireSEF() {
             </div>
           </div>
 
-          {/* Section 5: Ministères et départements */}
+          {/* Section 6: Ministères et départements */}
           <div className="form-section">
-            <h2 className="section-title">5. Ministères et Départements</h2>
+            <h2 className="section-title">6. Ministères et Départements</h2>
             
             <div className="form-group">
               <label>Ministères et départements de service dans le passé</label>
@@ -821,9 +1018,9 @@ export default function FormulaireSEF() {
             </div>
           </div>
 
-          {/* Section 6: Famille de disciples */}
+          {/* Section 7: Famille de disciples */}
           <div className="form-section">
-            <h2 className="section-title">6. Famille de Disciples</h2>
+            <h2 className="section-title">7. Famille de Disciples</h2>
             
             <div className="form-group">
               <label>As-tu déjà intégré une famille de disciples ?</label>
@@ -877,11 +1074,114 @@ export default function FormulaireSEF() {
                 />
               </div>
             )}
+
+            <div style={{
+              marginTop: '24px',
+              padding: '20px',
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              borderRadius: '12px',
+              border: '2px solid #f5576c'
+            }}>
+              <p style={{
+                fontSize: '14px',
+                color: 'white',
+                lineHeight: '1.6',
+                margin: 0,
+                marginBottom: '12px'
+              }}>
+                💫 <strong>Rejoindre "Les Passionnés"</strong>
+              </p>
+              <p style={{
+                fontSize: '13px',
+                color: 'white',
+                lineHeight: '1.6',
+                margin: 0,
+                marginBottom: '12px'
+              }}>
+                Si tu souhaites être suivi(e), accompagné(e) et encadré(e) par Naby (famille de disciples « les passionnés », portée par Pasteure Rochelle B. PASSI, de la lignée de Pasteure Mode CASTANOU), tu peux rejoindre ce groupe :
+              </p>
+              <a 
+                href="https://chat.whatsapp.com/CGyUpCz8LLGIqr2WR60R7e?mode=gi_t"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  padding: '10px 20px',
+                  background: 'white',
+                  color: '#f5576c',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '13px',
+                  transition: 'all 0.3s'
+                }}
+              >
+                📱 Rejoindre le groupe WhatsApp
+              </a>
+            </div>
           </div>
 
-          {/* Section 7: Service au SEF */}
+          {/* Section 8: Famille d'Impact */}
           <div className="form-section">
-            <h2 className="section-title">7. Service et Mission au SEF</h2>
+            <h2 className="section-title">8. Famille d'Impact</h2>
+            
+            <div className="form-group">
+              <label>Es-tu dans une Famille d'Impact ?</label>
+              <div className="radio-group">
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="familleImpactOui"
+                    name="familleImpact"
+                    value="oui"
+                    checked={formData.familleImpact === 'oui'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="familleImpactOui" style={{ marginBottom: 0 }}>Oui</label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="familleImpactNon"
+                    name="familleImpact"
+                    value="non"
+                    checked={formData.familleImpact === 'non'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="familleImpactNon" style={{ marginBottom: 0 }}>Non</label>
+                </div>
+              </div>
+            </div>
+
+            {formData.familleImpact === 'oui' && (
+              <div className="form-group">
+                <label htmlFor="nomFamilleImpact">Laquelle ?</label>
+                <input
+                  type="text"
+                  id="nomFamilleImpact"
+                  name="nomFamilleImpact"
+                  value={formData.nomFamilleImpact}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+
+            {formData.familleImpact === 'non' && (
+              <div className="form-group">
+                <label htmlFor="raisonNonIntegrationImpact">Pour quelle(s) raison(s) ?</label>
+                <textarea
+                  id="raisonNonIntegrationImpact"
+                  name="raisonNonIntegrationImpact"
+                  value={formData.raisonNonIntegrationImpact}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Section 9: Service et Mission au SEF */}
+          <div className="form-section">
+            <h2 className="section-title">9. Service et Mission au SEF</h2>
             
             <div className="form-group">
               <label>Service et/ou mission actuels au sein du SEF</label>
@@ -948,9 +1248,187 @@ export default function FormulaireSEF() {
             </div>
           </div>
 
-          {/* Section 8: Partage personnel */}
+          {/* Section 10: Vie Spirituelle */}
           <div className="form-section">
-            <h2 className="section-title">8. Partage Personnel</h2>
+            <h2 className="section-title">10. Vie Spirituelle</h2>
+            
+            <div className="form-group">
+              <label htmlFor="viePreiereMeditation">En quelques mots, comment qualifies-tu ta vie de prière et de méditation ?</label>
+              <textarea
+                id="viePreiereMeditation"
+                name="viePreiereMeditation"
+                value={formData.viePreiereMeditation}
+                onChange={handleChange}
+                placeholder="Partage ton expérience personnelle..."
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Où en es-tu concernant le Discipolat ?</label>
+              <div className="radio-group" style={{ flexDirection: 'column', gap: '16px' }}>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="discipolatCroissance"
+                    name="niveauDiscipolat"
+                    value="croissance"
+                    checked={formData.niveauDiscipolat === 'croissance'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="discipolatCroissance" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je suis un disciple en croissance, j'ai besoin d'encadrement
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="discipolatAffermis"
+                    name="niveauDiscipolat"
+                    value="affermis"
+                    checked={formData.niveauDiscipolat === 'affermis'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="discipolatAffermis" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je suis un disciple affermis, je n'ai pas besoin d'être exhorté pour venir à l'église, servir et obéir à la parole de Dieu
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="discipolatFaiseur"
+                    name="niveauDiscipolat"
+                    value="faiseur"
+                    checked={formData.niveauDiscipolat === 'faiseur'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="discipolatFaiseur" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je suis un disciple et un faiseur de disciples. Je suis déjà plusieurs personnes
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 11: Présence à l'Église */}
+          <div className="form-section">
+            <h2 className="section-title">11. Présence à l'Église</h2>
+            
+            <div className="form-group">
+              <label>Quel est ton niveau de présence à l'église ?</label>
+              <div className="radio-group" style={{ flexDirection: 'column', gap: '12px' }}>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="presenceTousDimanches"
+                    name="presenceEglise"
+                    value="tous_dimanches"
+                    checked={formData.presenceEglise === 'tous_dimanches'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="presenceTousDimanches" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je viens tous les dimanches sauf cas de force majeure
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="presence1sur2"
+                    name="presenceEglise"
+                    value="1_sur_2"
+                    checked={formData.presenceEglise === '1_sur_2'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="presence1sur2" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je viens 1 dimanche sur 2
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="presence1mois"
+                    name="presenceEglise"
+                    value="1_mois"
+                    checked={formData.presenceEglise === '1_mois'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="presence1mois" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je viens 1 dimanche par mois
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="presencePriere"
+                    name="presenceEglise"
+                    value="temps_priere"
+                    checked={formData.presenceEglise === 'temps_priere'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="presencePriere" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Je viens aux temps de prière
+                  </label>
+                </div>
+                <div className="radio-option">
+                  <input
+                    type="radio"
+                    id="presenceAutre"
+                    name="presenceEglise"
+                    value="autre"
+                    checked={formData.presenceEglise === 'autre'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="presenceAutre" style={{ marginBottom: 0, marginLeft: '8px' }}>
+                    Autre
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {formData.presenceEglise === 'autre' && (
+              <div className="form-group">
+                <label htmlFor="autrePresence">Précise ta présence à l'église</label>
+                <input
+                  type="text"
+                  id="autrePresence"
+                  name="autrePresence"
+                  value={formData.autrePresence}
+                  onChange={handleChange}
+                  placeholder="Précise..."
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Section 12: Attentes et Suggestions */}
+          <div className="form-section">
+            <h2 className="section-title">12. Attentes et Suggestions</h2>
+            
+            <div className="form-group">
+              <label htmlFor="attentesMinistere">Qu'attends-tu de ce ministère (service social) ? À quels besoins peut-il répondre ?</label>
+              <textarea
+                id="attentesMinistere"
+                name="attentesMinistere"
+                value={formData.attentesMinistere}
+                onChange={handleChange}
+                placeholder="Partage tes attentes et besoins..."
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="suggestionsAmeliorations">Comment peut-il fonctionner ? Des améliorations et suggestions ? Des projets à soumettre ?</label>
+              <textarea
+                id="suggestionsAmeliorations"
+                name="suggestionsAmeliorations"
+                value={formData.suggestionsAmeliorations}
+                onChange={handleChange}
+                placeholder="Partage tes idées et suggestions..."
+              />
+            </div>
+          </div>
+
+          {/* Section 13: Partage Personnel */}
+          <div className="form-section">
+            <h2 className="section-title">13. Partage Personnel</h2>
             
             <div className="form-group">
               <label htmlFor="situationPersonnelle">
@@ -961,25 +1439,43 @@ export default function FormulaireSEF() {
                 name="situationPersonnelle"
                 value={formData.situationPersonnelle}
                 onChange={handleChange}
-                placeholder="Partagez ici en toute confidentialité..."
+                placeholder="Partage ici en toute confidentialité..."
               />
             </div>
           </div>
 
-          {/* Section 9: Sujets de prière */}
-          <div className="form-section" style={{ borderBottom: 'none' }}>
-            <h2 className="section-title">9. Sujets de Prière</h2>
+          {/* Section 14: Sujets de Prière */}
+          <div className="form-section">
+            <h2 className="section-title">14. Sujets de Prière</h2>
             
             <div className="form-group">
-              <label htmlFor="sujetsPreire">
-                Souhaites-tu que je prie pour toi pour un ou plusieurs sujet(s) ?
+              <label htmlFor="sujetPriereMajeur">
+                As-tu un sujet de prière majeur ? Ou une thématique de prière importante pour toi ?
               </label>
               <textarea
-                id="sujetsPreire"
-                name="sujetsPreire"
-                value={formData.sujetsPreire}
+                id="sujetPriereMajeur"
+                name="sujetPriereMajeur"
+                value={formData.sujetPriereMajeur}
                 onChange={handleChange}
-                placeholder="Partagez vos sujets de prière..."
+                placeholder="Partage ton sujet de prière majeur..."
+              />
+            </div>
+          </div>
+
+          {/* Section 15: Commentaires et Observations */}
+          <div className="form-section" style={{ borderBottom: 'none' }}>
+            <h2 className="section-title">15. Commentaires et Observations</h2>
+            
+            <div className="form-group">
+              <label htmlFor="commentairesObservations">
+                As-tu un commentaire ou une observation que tu souhaiterais partager ?
+              </label>
+              <textarea
+                id="commentairesObservations"
+                name="commentairesObservations"
+                value={formData.commentairesObservations}
+                onChange={handleChange}
+                placeholder="Partage tes commentaires ou observations..."
               />
             </div>
           </div>
