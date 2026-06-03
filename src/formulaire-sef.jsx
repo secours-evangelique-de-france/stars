@@ -46,7 +46,9 @@ export default function FormulaireSEF() {
     suggestionsAmeliorations: '',
     situationPersonnelle: '',
     sujetPriereMajeur: '',
-    commentairesObservations: ''
+    commentairesObservations: '',
+    vehicule: '',
+    voiture: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -699,6 +701,68 @@ export default function FormulaireSEF() {
               </select>
             </div>
           </div>
+
+          <div className="form-group">
+  <label>Es-tu véhiculé(e) ? *</label>
+  <div className="radio-group">
+    <div className="radio-option">
+      <input
+        type="radio"
+        id="vehiculeOui"
+        name="vehicule"
+        value="oui"
+        checked={formData.vehicule === 'oui'}
+        onChange={handleChange}
+        required
+      />
+      <label htmlFor="vehiculeOui" style={{ marginBottom: 0 }}>Oui</label>
+    </div>
+
+    <div className="radio-option">
+      <input
+        type="radio"
+        id="vehiculeNon"
+        name="vehicule"
+        value="non"
+        checked={formData.vehicule === 'non'}
+        onChange={handleChange}
+        required
+      />
+      <label htmlFor="vehiculeNon" style={{ marginBottom: 0 }}>Non</label>
+    </div>
+  </div>
+</div>
+
+<div className="form-group">
+  <label>As-tu une voiture ? *</label>
+  <div className="radio-group">
+    <div className="radio-option">
+      <input
+        type="radio"
+        id="voitureOui"
+        name="voiture"
+        value="oui"
+        checked={formData.voiture === 'oui'}
+        onChange={handleChange}
+        required
+      />
+      <label htmlFor="voitureOui" style={{ marginBottom: 0 }}>Oui</label>
+    </div>
+
+    <div className="radio-option">
+      <input
+        type="radio"
+        id="voitureNon"
+        name="voiture"
+        value="non"
+        checked={formData.voiture === 'non'}
+        onChange={handleChange}
+        required
+      />
+      <label htmlFor="voitureNon" style={{ marginBottom: 0 }}>Non</label>
+    </div>
+  </div>
+</div>
 
           {/* Section 3: Situation familiale */}
           <div className="form-section">
